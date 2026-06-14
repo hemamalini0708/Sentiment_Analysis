@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Ultra&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Sentiment Analysis</title>
+    <style>
+        body { background-color: #87CEEB; }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgba(255,255,255,0.3);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .positive { color: green; }
+        .negative { color: red; }
+    </style>
+</head>
+<body>
+<br>
+<div class="container">
+    <section class="jumbotron text-center">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="jumbotron-heading"><font color="red">Review Analysis</font></h1>
+                <p class="lead text-black">
+                    <h3>Please enter your review to check the sentiment</h3>
+                </p>
+            </div>
+            <div class="col-sm-6">
+                <form method="POST" action="/predict">
+                    <textarea name="review" class="form-control" cols="8" rows="8"
+                              placeholder="Enter your review...">{{ review }}</textarea>
+                    <br>
+                    <button class="btn btn-success" type="submit">Check</button>
+                    <button style="margin-left: 10px;" class="btn btn-danger" type="reset">Reset</button>
+                </form>
+                <br>
+                {% if prediction_text %}
+                <div class="result-box">
+                    Result = <span class="{{ 'positive' if 'positive' in prediction_text else 'negative' }}">
+                        {{ prediction_text }}
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</div>
+
+<h1><font color="black">Project By <font color="Brown">Hema</font></font></h1>
+<h3>Data Scientist and NLP Engineer</h3>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script>
+    document.querySelector('button[type="reset"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('textarea[name="review"]').value = '';
+});
+</script>
+</body>
+</html>
